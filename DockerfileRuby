@@ -1,0 +1,5 @@
+FROM ruby:3.2.1-slim-buster
+WORKDIR /var/www/api
+COPY Gemfile Gemfile.lock .
+RUN apt-get update && apt-get install -y git ruby-dev zlib1g-dev liblzma-dev build-essential default-libmysqlclient-dev glibc-source vim && gem update --system 3.4.7 && gem install nokogiri --platform=ruby
+RUN bundle install
