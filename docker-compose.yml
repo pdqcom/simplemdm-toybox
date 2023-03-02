@@ -1,36 +1,40 @@
 version: '3.8'
 services:
   api:
-    image: pdq-interview-rails
+    image: pdq-interview-api
     tty: true
+    environment:
+      - PORT=4100
     ports:
-      - 3000:3000
+      - 4100:4100
+    command: ["rails", "s", "-b", "0.0.0.0", "-p", "4100"]
     volumes:
-      - './rails:/var/www/rails'
+      - './api:/var/www/api'
     networks:
       - pdqnet
     depends_on:
       - db
-#  frontend:
-#    environment:
-#      - PORT=4000
-#    image:
-#    command: yarn dev
-#    tty: true
-#    depends_on:
-#      - api
-#    ports:
-#      - 4000:4000
-#      - 9292:9292
-#    volumes:
-#      - './frontend:/var/www/rails'
-#    networks:
-#      - pdqnet
+  frontend:
+    environment:
+      - PORT=5001
+    image: pdq-interview-frontend
+    command:
+      - yarn dev
+    tty: true
+    depends_on:
+      - api
+    ports:
+      - 4101:4000
+      - 4102:9292
+    volumes:
+      - './frontend:/var/www/frontend'
+    networks:
+      - pdqnet
   db:
     image: mysql/mysql-server:8.0
     command: --default-authentication-plugin=mysql_native_password
     ports:
-      - 3306:3307
+      - 4103:3306
     volumes:
       - dbdata:/var/lib/mysql
     environment:

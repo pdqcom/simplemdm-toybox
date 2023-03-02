@@ -1,5 +1,5 @@
 #!/bin/bash
 project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
 
-docker build -t "pdq-interview-rails" -f "$project_root/DockerfileRuby" "$project_root/api"
-#docker build -t "pdq-interview-rails" -f "$project_root/DockerfileRuby" "$project_root/rails"
+docker build -t "pdq-interview-api" -f "$project_root/DockerfileAPI" "$project_root/api"
+docker build -t "pdq-interview-frontend" -f "$project_root/DockerfileFrontend" "$project_root/api"

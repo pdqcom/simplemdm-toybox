@@ -2,7 +2,7 @@
 project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
 use_api_console=""
 use_frontend_console=""
-command="bash"
+command=""
 help="Usage: $(basename "${BASH_SOURCE[0]}") [ -a -f -h]
 Runs a shell in a given docker container with the appropriate volume mounts
 Arguments:
@@ -32,13 +32,19 @@ done
 
 if [ -n "$use_api_console" ]; then
   echo "Starting API console" >&2
-  docker compose run -it -v "$project_root":/var/www/ api $command
+  if [ -z "$command" ]; then
+    command="bash"
+  fi
+  docker compose run -it -v "$project_root/api":/var/www/api api $command
   exit
 fi
 
 if [ -n "$use_frontend_console" ]; then
   echo "Starting frontend console" >&2
-  docker compose run -it -v "$project_root":/var/www/ frontend $command
+  if [ -z "$command" ]; then
+      command="sh"
+    fi
+  docker compose run -it -v "$project_root":/var/www/frontend frontend $command
   exit
 fi
 
