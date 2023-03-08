@@ -1,0 +1,4 @@
+#!/bin/bash
+project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
+
+docker compose -f "$project_root/docker-compose.yml" up

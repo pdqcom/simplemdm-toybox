@@ -18,14 +18,12 @@ services:
     environment:
       - PORT=5001
     image: pdq-interview-frontend
-    command:
-      - yarn dev
-    tty: true
+    command: ["yarn", "dev"]
     depends_on:
       - api
     ports:
-      - 4101:4000
-      - 4102:9292
+      - 5001:5001
+      - 9292:9292
     volumes:
       - './frontend:/var/www/frontend'
     networks:
