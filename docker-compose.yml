@@ -15,15 +15,13 @@ services:
     depends_on:
       - db
   frontend:
-    environment:
-      - PORT=5001
-    image: pdq-interview-frontend
+    image: node:19.7.0-alpine3.16
+    working_dir: '/var/www/frontend'
     command: ["yarn", "dev"]
     depends_on:
       - api
     ports:
-      - 5001:5001
-      - 9292:9292
+      - 3000:3000
     volumes:
       - './frontend:/var/www/frontend'
     networks:

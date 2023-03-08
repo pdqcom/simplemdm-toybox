@@ -1,5 +1,29 @@
 #!/bin/bash
 project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
 
-docker build -t "pdq-interview-api" -f "$project_root/DockerfileAPI" "$project_root/api"
-docker build -t "pdq-interview-frontend" -f "$project_root/DockerfileFrontend" "$project_root/api"
+no_cache=""
+help="Usage: $(basename "${BASH_SOURCE[0]}") [-h -n]
+Builds the docker images
+Arguments:
+  -h - print this usage.
+  -n - no cache in build.
+"
+while [[ $# -gt 0 ]]; do
+  case $1 in
+      -h)
+        echo "$help"
+        exit 0
+      ;;
+      -n)
+        no_cache="--no-cache"
+        exit 0
+      ;;
+      *)
+        echo "Unexpected argument: $1"
+        exit 1
+      ;;
+  esac
+  shift
+done
+
+docker build $no_cache -t "pdq-interview-api" -f "$project_root/DockerfileAPI" "$project_root/api"
