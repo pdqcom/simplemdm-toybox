@@ -1,5 +1,16 @@
 version: '3.8'
 services:
+  router:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - './nginx:/etc/nginx/conf.d/'
+    depends_on:
+      - api
+      - frontend
+    networks:
+     - pdqnet
   api:
     image: pdq-interview-api
     tty: true
