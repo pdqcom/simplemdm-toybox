@@ -25,5 +25,10 @@ module Api
     config.api_only = true
 
     config.hosts << "api"
+    config.generators do |g|
+      g.test_framework :test_unit, fixture_replacement: :factory_girl
+      g.fixture_replacement :factory_bot, suffix_factory: 'factory'
+    end
+
   end
 end
