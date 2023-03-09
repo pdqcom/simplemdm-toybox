@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_09_013556) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_030942) do
   create_table "accounts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -39,8 +39,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_013556) do
     t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "device_id"
     t.index ["account_id", "name"], name: "index_profiles_on_account_id_and_name", unique: true
     t.index ["account_id"], name: "index_profiles_on_account_id"
+    t.index ["device_id"], name: "index_profiles_on_device_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -54,5 +56,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_013556) do
 
   add_foreign_key "devices", "accounts"
   add_foreign_key "profiles", "accounts"
+  add_foreign_key "profiles", "devices"
   add_foreign_key "users", "accounts"
 end
