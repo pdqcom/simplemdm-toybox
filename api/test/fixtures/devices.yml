@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  serial_number: MyString
+  model: MyString
+  account: one
+
+two:
+  serial_number: MyString
+  model: MyString
+  account: two

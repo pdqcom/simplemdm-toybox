@@ -5,3 +5,6 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+company = Account.create_or_find_by! name: "Company"
+company.users.create_or_find_by! email: "test@example.com"
