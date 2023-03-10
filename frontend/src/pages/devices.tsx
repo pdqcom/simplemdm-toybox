@@ -1,20 +1,27 @@
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
-export default function Devices() {
-    const rows: GridRowsProp = [
-        {id: 1, col1: 'Hello', col2: 'World'},
-        {id: 2, col1: 'DataGridPro', col2: 'is Awesome'},
-        {id: 3, col1: 'MUI', col2: 'is Amazing'},
-    ];
+import axios from "axios";
+import {useEffect, useState} from "react";
+import useSWR from 'swr'
+const columns: GridColDef[] = [
+    {field: 'id', headerName: 'id', width: 150},
+    {field: 'serialNumber', headerName: 'Serial Number', width: 300},
+    {field: 'model', headerName: 'Model', width: 150},
+];
 
-    const columns: GridColDef[] = [
-        {field: 'col1', headerName: 'Column 1', width: 150},
-        {field: 'col2', headerName: 'Column 2', width: 150},
-    ];
+const getDevices = () => axios.get('/api/devices.json')
+export default function Devices() {
+    const { data: response, error, isLoading } = useSWR('/api/devices', getDevices)
+
+    const rows =  response?.data?.data || []
+    let dataGrid = <DataGrid rows={rows} columns={columns} />
+    if (error) dataGrid = <div>failed to load</div>
+    if (isLoading) dataGrid = <div>loading...</div>
+
     return (
         <>
             <h1>Devices</h1>
             <div style={{ height: 500, width: '100%' }}>
-                <DataGrid rows={rows} columns={columns} />
+                { dataGrid }
             </div>
 
         </>

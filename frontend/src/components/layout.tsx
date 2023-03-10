@@ -1,7 +1,5 @@
 import {Grid} from "@mui/material";
 import Sidebar from "@/components/sidebar";
-import {Main, NextScript} from "next/document";
-
 
 const Layout = ({ children }) => {
     return <>
