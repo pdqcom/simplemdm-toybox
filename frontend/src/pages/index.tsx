@@ -1,8 +1,11 @@
+import type { NextPageWithLayout } from './_app'
 
-export default function Home() {
+const Home: NextPageWithLayout = () => {
   return (
     <>
         main
     </>
   )
 }
+
+export default Home

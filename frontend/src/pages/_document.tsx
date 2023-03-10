@@ -1,7 +1,5 @@
 import {Html, Head, Main, NextScript} from 'next/document'
 import CssBaseline from '@mui/material/CssBaseline';
-import {Grid} from "@mui/material";
-import Sidebar from "@/components/sidebar";
 
 export default function Document() {
     return (
@@ -17,14 +15,7 @@ export default function Document() {
                 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
             </Head>
             <body>
-            <Grid container spacing={1}>
-                <Grid item xs={3}>
-                    <Sidebar/>
-                </Grid>
-                <Grid item xs={9}>
-                    <Main/>
-                </Grid>
-            </Grid>
+            <Main/>
             <NextScript/>
             </body>
         </Html>
