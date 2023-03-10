@@ -1,6 +1,5 @@
-import type { NextPageWithLayout } from './_app'
 
-const Home: NextPageWithLayout = () => {
+const Home = () => {
   return (
     <>
         main
