@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import {DataGrid, GridColDef, GridRowsProp} from "@mui/x-data-grid";
 import axios from "axios";
+import {Typography} from "@mui/material";
 
 const columns: GridColDef[] = [
     {field: 'id', headerName: 'id', width: 150},
@@ -20,7 +21,7 @@ export default function Profiles() {
     }
     return (
         <>
-            <h1>Profiles</h1>
+            <Typography color="textPrimary" gutterBottom variant="h2">Profiles</Typography>
             <div style={{height: 500, width: '100%'}}>
                 {dataGrid}
             </div>

@@ -3,7 +3,7 @@ import axios from "axios";
 import useSWR from 'swr'
 import {useRouter} from 'next/router';
 import CircularProgress from '@mui/material/CircularProgress';
-import {ListItem, ListItemButton, ListItemText} from "@mui/material";
+import {ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
 
 const getDevice = (id) => axios.get(`/api/devices/${id}.json`)
 const getAssignments = (id) => axios.get(`/api/devices/${id}/profiles/assignments.json`)
@@ -16,7 +16,7 @@ export default function Device() {
     )
     const device = deviceResponse?.data?.data
 
-    const {data: assignmentResponse, isLoading: isLoadingAssignments} = useSWR(
+    const profileResponse = useSWR(
         `/api/devices/${id}/profiles/assignments`,
         () => getAssignments(id)
     )
@@ -29,9 +29,17 @@ export default function Device() {
     //     dataGrid = <DataGrid rows={rows} columns={columns} loading={isLoading}/>
     // }
 
+    let dataGrid
+    if (error) {
+        dataGrid = <div>failed to load</div>
+    } else {
+        const rows: GridRowsProp = response?.data?.data || []
+        dataGrid = <DataGrid rows={rows} columns={columns} loading={isLoading}/>
+    }
+
     return (
         <>
-            <h1>Device {id}</h1>
+            <Typography color="textPrimary" gutterBottom variant="h2">Device {id}</Typography>
             <div>
                 <ListItemButton component="ul">
                     <ListItem component="li">
@@ -46,7 +54,7 @@ export default function Device() {
                     </ListItem>
                 </ListItemButton>
             </div>
-            <h2>Profile Assignments</h2>
+            <Typography color="textPrimary" gutterBottom variant="h2">Profile Assignments</Typography>
             <div>
 
             </div>

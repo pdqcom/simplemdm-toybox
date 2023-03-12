@@ -2,6 +2,7 @@ import {DataGrid, GridRowsProp, GridColDef} from '@mui/x-data-grid';
 import axios from "axios";
 import useSWR from 'swr'
 import Link from "next/link";
+import {Typography} from "@mui/material";
 
 const DeviceLink = ({ id }) => {
 
@@ -28,7 +29,7 @@ export default function Devices() {
     }
     return (
         <>
-            <h1>Devices</h1>
+            <Typography color="textPrimary" gutterBottom variant="h2">Devices</Typography>
             <div style={{height: 500, width: '100%'}}>
                 {dataGrid}
             </div>
