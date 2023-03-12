@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   resources :users, only: [:index]
   resources :devices, only: [:index, :show] do
     resources :profiles do
+      collection do
+        get 'assignments' => 'device_profile_assignments#index'
+      end
       resources :assignments, only: [:create], controller: :device_profile_assignments do
         collection do
           delete :destroy

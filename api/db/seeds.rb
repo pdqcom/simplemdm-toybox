@@ -8,7 +8,7 @@
 
 company = Account.create_or_find_by! name: "Company"
 
-models  = %w[iPhone, iPad, mac]
+models  = %w[iPhone iPad mac]
 devices = %w[
 SYNXBU52733466
 TISZNN51122841

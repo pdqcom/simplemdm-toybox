@@ -1,9 +1,17 @@
 import {DataGrid, GridRowsProp, GridColDef} from '@mui/x-data-grid';
 import axios from "axios";
 import useSWR from 'swr'
+import Link from "next/link";
 
+const DeviceLink = ({ id }) => {
+
+    return <Link href={{
+        pathname: '/devices/[id]',
+        query: { id },
+    }}>{ id }</Link>
+}
 const columns: GridColDef[] = [
-    {field: 'id', headerName: 'id', width: 150},
+    {field: 'id', headerName: 'id', width: 150, renderCell: DeviceLink},
     {field: 'serialNumber', headerName: 'Serial Number', width: 300},
     {field: 'model', headerName: 'Model', width: 150},
 ];

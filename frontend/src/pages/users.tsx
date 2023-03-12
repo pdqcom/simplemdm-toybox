@@ -1,7 +1,30 @@
+import useSWR from "swr";
+import {DataGrid, GridColDef, GridRowsProp} from "@mui/x-data-grid";
+import axios from "axios";
+
+const columns: GridColDef[] = [
+    {field: 'id', headerName: 'id', width: 150},
+    {field: 'email', headerName: 'Email', width: 300},
+];
+
+const getUsers = () => axios.get('/api/users.json')
+
 export default function Users() {
+    const {data: response, error, isLoading} = useSWR('/api/users', getUsers)
+    let dataGrid
+    if (error) {
+        dataGrid = <div>failed to load</div>
+    } else {
+        const rows: GridRowsProp = response?.data?.data || []
+        dataGrid = <DataGrid rows={rows} columns={columns} loading={isLoading}/>
+    }
     return (
         <>
-            users
+            <h1>Users</h1>
+            <div style={{height: 500, width: '100%'}}>
+                {dataGrid}
+            </div>
+
         </>
     )
 }
