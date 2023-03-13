@@ -1,4 +1,8 @@
 #!/bin/bash
 project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
 
+pid_file="$project_root/api/tmp/pids/server.pid"
+if [ -f "$pid_file" ]; then
+  rm "$pid_file"
+fi
 docker compose -f "$project_root/docker-compose.yml" up
