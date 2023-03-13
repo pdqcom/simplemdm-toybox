@@ -6,6 +6,7 @@ import {Box, Typography} from "@mui/material";
 const columns: GridColDef[] = [
     {field: 'id', headerName: 'id', width: 150},
     {field: 'name', headerName: 'Name', width: 300},
+    {field: 'deviceCount', headerName: 'Assigned Devices', width: 300},
 ];
 
 const getProfiles = () => axios.get('/api/profiles.json')
