@@ -6,7 +6,6 @@ import {Box, Typography} from "@mui/material";
 import {AppSettingsAlt} from "@mui/icons-material";
 
 const DeviceLink = ({ id }) => {
-
     return <Link href={{
         pathname: '/devices/[id]',
         query: { id },

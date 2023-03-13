@@ -5,13 +5,13 @@ class DeviceProfileAssignmentsController < ApplicationController
     device.profiles.load
   end
   def create
-    device.profiles << profile
-    head 200
+    device.profiles << profile unless device.profiles.include?(profile)
+    render 'show'
   end
 
   def destroy
     device.profiles.delete(profile)
-    head 200
+    render 'show'
   end
 
   private

@@ -3,13 +3,25 @@ import axios from "axios";
 import useSWR from 'swr'
 import {useRouter} from 'next/router';
 import CircularProgress from '@mui/material/CircularProgress';
-import {Box, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
+import {
+    Box,
+    Checkbox,
+    Divider,
+    List,
+    ListItem,
+    ListItemText,
+    Typography
+} from "@mui/material";
 
-const getDevice = (id) => axios.get(`/api/devices/${id}.json`).then(({ data }) => data)
-const getAssignments = (id) => axios.get(`/api/devices/${id}/profiles/assignments.json`)
+const getDevice = (id) => id ? axios.get(`/api/devices/${id}.json`).then(({ data }) => data) : null
+const getAssignments = (id) => id ? axios.get(`/api/devices/${id}/profiles/assignments.json`).then(({ data }) => data) : null
+const assignProfile = (deviceId, profileId) => axios.post(`/api/devices/${deviceId}/profiles/${profileId}/assignments.json`)
+const unassignProfile = (deviceId, profileId) => axios.delete(`/api/devices/${deviceId}/profiles/${profileId}/assignments.json`)
+
 export default function Device() {
     const router = useRouter()
     const {id} = router.query
+
     const {data: deviceResponse , isLoading: isLoadingDevice} = useSWR(
         `/api/devices/${id}`,
         () => getDevice(id)
@@ -21,43 +33,53 @@ export default function Device() {
         () => getAssignments(id)
     )
 
-    // let dataGrid
-    // if (error) {
-    //     dataGrid = <div>failed to load</div>
-    // } else {
-    //     const rows: GridRowsProp = response?.data?.data || []
-    //     dataGrid = <DataGrid rows={rows} columns={columns} loading={isLoading}/>
-    // }
+    const ProfileAssignmentCheckbox = ({ row: profile }) => {
+        const changeHandler = (e) => {
+            const {checked} = e.target
+            const request = checked ? assignProfile(id, profile.id) : unassignProfile(id, profile.id)
 
-    // let dataGrid
-    // if (error) {
-    //     dataGrid = <div>failed to load</div>
-    // } else {
-    //     const rows: GridRowsProp = response?.data?.data || []
-    //     dataGrid = <DataGrid rows={rows} columns={columns} loading={isLoading}/>
-    // }
+            request.then(() => profileResponse.mutate())
+        }
+        return <Checkbox checked={profile.assigned} onChange={ changeHandler } />
+    }
+
+    const columns: GridColDef[] = [
+        {field: 'id', headerName: 'id', width: 150 },
+        {field: 'name', headerName: 'Name', width: 300},
+        {field: 'assigned', headerName: 'Assigned', width: 150, renderCell: ProfileAssignmentCheckbox},
+    ];
+
+    let dataGrid
+    if (profileResponse.error) {
+        dataGrid = <div>failed to load</div>
+    } else {
+        const rows: GridRowsProp = profileResponse?.data?.data || []
+        dataGrid = <DataGrid rows={rows} columns={columns} loading={profileResponse.isLoading}/>
+    }
 
     return (
         <Box>
             <Typography color="textPrimary" gutterBottom variant="h2">Device {id}</Typography>
             <Box>
-                <List component="ul">
-                    <ListItem component="li">
+                <List>
+                    <ListItem>
                         <ListItemText>
-                            Serial Number: {isLoadingDevice ? <CircularProgress/> : device.serialNumber}
+                            Serial Number: {isLoadingDevice ? <CircularProgress/> : device?.serialNumber}
                         </ListItemText>
                     </ListItem>
-                    <ListItem component="li">
+                    <Divider />
+                    <ListItem>
                         <ListItemText>
-                            Model: {isLoadingDevice ? <CircularProgress/> : device.model}
+                            Model: {isLoadingDevice ? <CircularProgress/> : device?.model}
                         </ListItemText>
                     </ListItem>
+                    <Divider />
                 </List>
             </Box>
             <Typography color="textPrimary" gutterBottom variant="h2">Profile Assignments</Typography>
-            <div>
-
-            </div>
+            <Box height="500px">
+                {dataGrid}
+            </Box>
         </Box>
     )
 }

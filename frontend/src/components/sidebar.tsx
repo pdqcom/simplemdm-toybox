@@ -17,14 +17,20 @@ const SidebarItem = ({text, href, Icon}: SidebarItemProps) => {
                 <ListItemIcon>
                     <Icon/>
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={text}/>
             </Link>
         </NextLink>
     </ListItem>
 }
 
 const Sidebar = () => {
-    return <Drawer open={true} variant="permanent">
+    return <Drawer
+        open={true}
+        variant="permanent"
+        sx={{
+            [`& .MuiDrawer-paper`]: {width: "200px"}
+        }}
+    >
         <List>
             <SidebarItem text="Devices" href="/devices" Icon={AppSettingsAlt}/>
             <SidebarItem text="Profiles" href="/profiles" Icon={Ballot}/>
