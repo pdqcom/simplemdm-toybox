@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
   resources :profiles, only: [:index]
-  resources :users, only: [:index]
+  resources :users, only: [:index] do
+    member do
+      put 'current'
+    end
+  end
   resources :devices, only: [:index, :show] do
     resources :profiles do
       collection do
