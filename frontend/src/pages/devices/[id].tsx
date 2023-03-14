@@ -62,19 +62,15 @@ export default function Device() {
         <Box>
             <Typography color="textPrimary" gutterBottom variant="h2">Device {id}</Typography>
             <Box>
-                <List>
+                <List dense={ true }  sx={{"background-color": "#FFF", border: 1, borderColor: 'primary.light',}}>
                     <ListItem>
-                        <ListItemText>
-                            Serial Number: {isLoadingDevice ? <CircularProgress/> : device?.serialNumber}
-                        </ListItemText>
+                        <ListItemText primary="Serial Number"
+                                      secondary={isLoadingDevice ? <CircularProgress/> : device?.serialNumber}/>
                     </ListItem>
-                    <Divider/>
                     <ListItem>
-                        <ListItemText>
-                            Model: {isLoadingDevice ? <CircularProgress/> : device?.model}
-                        </ListItemText>
+                        <ListItemText primary="Model"
+                                      secondary={isLoadingDevice ? <CircularProgress/> : device?.model}/>
                     </ListItem>
-                    <Divider/>
                 </List>
             </Box>
             <Typography color="textPrimary" gutterBottom variant="h2">Profile Assignments</Typography>
