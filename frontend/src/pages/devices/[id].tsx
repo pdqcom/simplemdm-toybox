@@ -4,15 +4,15 @@ import useSWR from 'swr'
 import {useRouter} from 'next/router';
 import CircularProgress from '@mui/material/CircularProgress';
 import {
-    Box,
+    Box, Card,
     Checkbox,
-    Divider,
     List,
     ListItem,
     ListItemText,
     Typography
 } from "@mui/material";
 import StyledDataGrid from "@/components/styled_data_grid";
+import React from "react";
 
 const getDevice = (id) => id ? axios.get(`/api/devices/${id}.json`).then(({data}) => data) : null
 const getAssignments = (id) => id ? axios.get(`/api/devices/${id}/profiles/assignments.json`).then(({data}) => data) : null
@@ -61,8 +61,8 @@ export default function Device() {
     return (
         <Box>
             <Typography color="textPrimary" gutterBottom variant="h2">Device {id}</Typography>
-            <Box>
-                <List dense={ true }  sx={{"background-color": "#FFF", border: 1, borderColor: 'primary.light',}}>
+            <Card sx={{mb: 4}}>
+                <List dense={ true }>
                     <ListItem>
                         <ListItemText primary="Serial Number"
                                       secondary={isLoadingDevice ? <CircularProgress/> : device?.serialNumber}/>
@@ -72,7 +72,7 @@ export default function Device() {
                                       secondary={isLoadingDevice ? <CircularProgress/> : device?.model}/>
                     </ListItem>
                 </List>
-            </Box>
+            </Card>
             <Typography color="textPrimary" gutterBottom variant="h2">Profile Assignments</Typography>
             {dataGrid}
         </Box>
