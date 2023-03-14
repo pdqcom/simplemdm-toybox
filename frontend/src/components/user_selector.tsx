@@ -4,30 +4,31 @@ import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
 
 const getUsers = () => axios.get('/api/users.json')
-const UserSelector = () => {
+export default function UserSelector() {
     const {data: response, error, isLoading, mutate} = useSWR('/api/users', getUsers)
 
     const users = response?.data?.data || []
     const currentUser = users.find(user => user.current)
-    const userMenuItems = users.map(user => <MenuItem value={user.id}>{user.email}</MenuItem>)
-    const handleChange = () => {
-
+    const userMenuItems = users.map(user => <MenuItem key={user.id} value={user.id}>{user.email}</MenuItem>)
+    const handleChange = (e) => {
+        const { value } = e.target
+        axios.put(`/api/users/${value}/current`).then(() => mutate)
     }
-    if (error){
+    const userSelector = <Select
+        value={currentUser?.id}
+        label="Current User"
+        onChange={handleChange}
+    >
+        {userMenuItems}
+    </Select>
+
+    if (error) {
         return <div>failed to load</div>
     } else {
         return <FormControl fullWidth>
             <InputLabel>Current User</InputLabel>
-            <Select
-                value={5}
-                label="Current User"
-                onChange={handleChange}
-            >
-                {userMenuItems}
-            </Select>
+            {isLoading ? <CircularProgress/> : userSelector}
         </FormControl>
     }
 
 }
-
-export default UserSelector

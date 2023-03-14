@@ -5,11 +5,8 @@ class UsersController < ApplicationController
   end
 
   def current
-    User.transaction do
-      account.users.update_all(current: false)
-      user.current = true
-      user.save!
-    end
+    user.make_current
+    head 200
   end
 
   private
