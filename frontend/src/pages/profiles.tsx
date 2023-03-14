@@ -2,6 +2,7 @@ import useSWR from "swr";
 import {DataGrid, GridColDef, GridRowsProp} from "@mui/x-data-grid";
 import axios from "axios";
 import {Box, Typography} from "@mui/material";
+import StyledDataGrid from "@/components/styled_data_grid";
 
 const columns: GridColDef[] = [
     {field: 'id', headerName: 'id', width: 150},
@@ -18,7 +19,7 @@ export default function Profiles() {
         dataGrid = <div>failed to load</div>
     } else {
         const rows: GridRowsProp = response?.data?.data || []
-        dataGrid = <DataGrid rows={rows} columns={columns} loading={isLoading}/>
+        dataGrid = <StyledDataGrid rows={rows} columns={columns} loading={isLoading}/>
     }
     return (
         <>

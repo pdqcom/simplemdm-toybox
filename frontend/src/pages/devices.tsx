@@ -3,7 +3,7 @@ import axios from "axios";
 import useSWR from 'swr'
 import Link from "next/link";
 import {Box, Typography} from "@mui/material";
-import {AppSettingsAlt} from "@mui/icons-material";
+import StyledDataGrid from "@/components/styled_data_grid";
 
 const DeviceLink = ({ id }) => {
     return <Link href={{
@@ -25,12 +25,12 @@ export default function Devices() {
         dataGrid = <div>failed to load</div>
     } else {
         const rows: GridRowsProp = response?.data?.data || []
-        dataGrid = <DataGrid rows={rows} columns={columns} loading={isLoading}/>
+        dataGrid = <StyledDataGrid rows={rows} columns={columns} loading={isLoading}/>
     }
     return (
         <Box>
             <Typography color="textPrimary" gutterBottom variant="h2">Devices</Typography>
-            <Box sx={{ height: "500px" }}>
+            <Box sx={{ height: "500px", bgcolor: 'primary' }}>
                 {dataGrid}
             </Box>
         </Box>

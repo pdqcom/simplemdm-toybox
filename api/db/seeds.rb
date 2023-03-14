@@ -28,9 +28,11 @@ MOBLAT74126544 ].map do |serial_number|
   device
 end
 
-users = %w[admin@example.com employee@example.com].map do |email|
+users = %w[admin@example.com employee@example.com support@example.com].map do |email|
   company.users.find_or_create_by! email: email
 end
+
+User.update_all("current = (email = 'admin@example.com')")
 
 profiles = %w[Wifi VPN Restrictions].map do |profile_name|
   company.profiles.find_or_create_by! name: profile_name
