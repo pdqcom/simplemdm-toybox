@@ -1,8 +1,9 @@
-import {Drawer, IconProps, Link, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {Box, Drawer, IconProps, Link, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {AppSettingsAlt, Ballot, Group} from "@mui/icons-material";
 import {ComponentType} from "react";
 
 import NextLink from "next/link"
+import UserSelector from "@/components/user_selector";
 
 type SidebarItemProps = {
     text: String,
@@ -36,6 +37,9 @@ const Sidebar = () => {
             <SidebarItem text="Profiles" href="/profiles" Icon={Ballot}/>
             <SidebarItem text="Users" href="/users" Icon={Group}/>
         </List>
+        <Box sx={{position: "absolute", bottom: 1, width: "100%" }} >
+            <UserSelector />
+        </Box>
     </Drawer>
 }
 

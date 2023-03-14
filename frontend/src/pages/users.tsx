@@ -1,7 +1,7 @@
 import useSWR from "swr";
-import {DataGrid, GridColDef, GridRowsProp} from "@mui/x-data-grid";
+import {GridColDef, GridRowsProp} from "@mui/x-data-grid";
 import axios from "axios";
-import {Box, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import StyledDataGrid from "@/components/styled_data_grid";
 
 const columns: GridColDef[] = [
