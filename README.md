@@ -4,7 +4,7 @@ SimplerMDM is a toy project consisting of a Ruby on Rails backend and a NextJS f
 There are several helper scripts included in the `bin` directory. Each one has their own help. To view the help
 run `./bin/$command -h`
 
-In order to setup SimplerMDM for the first time, run 
+In order to setup SimplerMDM for the first time, run:
 ```
 ./bin/setup
 ```
