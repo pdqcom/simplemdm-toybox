@@ -23,10 +23,7 @@ export default function Users() {
     return (
         <>
             <Typography color="textPrimary" gutterBottom variant="h2">Users</Typography>
-            <Box sx={{ height: "500px" }}>
-                {dataGrid}
-            </Box>
-
+            {dataGrid}
         </>
     )
 }

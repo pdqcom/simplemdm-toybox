@@ -12,9 +12,10 @@ import {
     ListItemText,
     Typography
 } from "@mui/material";
+import StyledDataGrid from "@/components/styled_data_grid";
 
-const getDevice = (id) => id ? axios.get(`/api/devices/${id}.json`).then(({ data }) => data) : null
-const getAssignments = (id) => id ? axios.get(`/api/devices/${id}/profiles/assignments.json`).then(({ data }) => data) : null
+const getDevice = (id) => id ? axios.get(`/api/devices/${id}.json`).then(({data}) => data) : null
+const getAssignments = (id) => id ? axios.get(`/api/devices/${id}/profiles/assignments.json`).then(({data}) => data) : null
 const assignProfile = (deviceId, profileId) => axios.post(`/api/devices/${deviceId}/profiles/${profileId}/assignments.json`)
 const unassignProfile = (deviceId, profileId) => axios.delete(`/api/devices/${deviceId}/profiles/${profileId}/assignments.json`)
 
@@ -22,7 +23,7 @@ export default function Device() {
     const router = useRouter()
     const {id} = router.query
 
-    const {data: deviceResponse , isLoading: isLoadingDevice} = useSWR(
+    const {data: deviceResponse, isLoading: isLoadingDevice} = useSWR(
         `/api/devices/${id}`,
         () => getDevice(id)
     )
@@ -33,18 +34,18 @@ export default function Device() {
         () => getAssignments(id)
     )
 
-    const ProfileAssignmentCheckbox = ({ row: profile }) => {
+    const ProfileAssignmentCheckbox = ({row: profile}) => {
         const changeHandler = (e) => {
             const {checked} = e.target
             const request = checked ? assignProfile(id, profile.id) : unassignProfile(id, profile.id)
 
             request.then(() => profileResponse.mutate())
         }
-        return <Checkbox checked={profile.assigned} onChange={ changeHandler } />
+        return <Checkbox checked={profile.assigned} onChange={changeHandler}/>
     }
 
     const columns: GridColDef[] = [
-        {field: 'id', headerName: 'id', width: 150 },
+        {field: 'id', headerName: 'id', width: 150},
         {field: 'name', headerName: 'Name', width: 300},
         {field: 'assigned', headerName: 'Assigned', width: 150, renderCell: ProfileAssignmentCheckbox},
     ];
@@ -54,7 +55,7 @@ export default function Device() {
         dataGrid = <div>failed to load</div>
     } else {
         const rows: GridRowsProp = profileResponse?.data?.data || []
-        dataGrid = <DataGrid rows={rows} columns={columns} loading={profileResponse.isLoading}/>
+        dataGrid = <StyledDataGrid rows={rows} columns={columns} loading={profileResponse.isLoading}/>
     }
 
     return (
@@ -67,19 +68,17 @@ export default function Device() {
                             Serial Number: {isLoadingDevice ? <CircularProgress/> : device?.serialNumber}
                         </ListItemText>
                     </ListItem>
-                    <Divider />
+                    <Divider/>
                     <ListItem>
                         <ListItemText>
                             Model: {isLoadingDevice ? <CircularProgress/> : device?.model}
                         </ListItemText>
                     </ListItem>
-                    <Divider />
+                    <Divider/>
                 </List>
             </Box>
             <Typography color="textPrimary" gutterBottom variant="h2">Profile Assignments</Typography>
-            <Box height="500px">
-                {dataGrid}
-            </Box>
+            {dataGrid}
         </Box>
     )
 }

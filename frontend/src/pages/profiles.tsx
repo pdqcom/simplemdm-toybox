@@ -24,9 +24,7 @@ export default function Profiles() {
     return (
         <>
             <Typography color="textPrimary" gutterBottom variant="h2">Profiles</Typography>
-            <Box sx={{ height: "500px" }}>
-                {dataGrid}
-            </Box>
+            {dataGrid}
 
         </>
     )

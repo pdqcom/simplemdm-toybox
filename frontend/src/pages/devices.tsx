@@ -30,9 +30,7 @@ export default function Devices() {
     return (
         <Box>
             <Typography color="textPrimary" gutterBottom variant="h2">Devices</Typography>
-            <Box sx={{ height: "500px", bgcolor: 'primary' }}>
                 {dataGrid}
-            </Box>
         </Box>
     )
 }
