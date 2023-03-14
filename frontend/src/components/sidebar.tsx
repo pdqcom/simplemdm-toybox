@@ -1,5 +1,16 @@
-import {Box, Drawer, IconProps, Link, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
-import {AppSettingsAlt, Ballot, Group} from "@mui/icons-material";
+import {
+    Box,
+    Drawer,
+    IconProps,
+    Link,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Typography
+} from "@mui/material";
+import {AppSettingsAlt, Ballot, CloudSync, FilterDrama, Group} from "@mui/icons-material";
 import {ComponentType} from "react";
 
 import NextLink from "next/link"
@@ -32,13 +43,16 @@ const Sidebar = () => {
             [`& .MuiDrawer-paper`]: {width: "200px"}
         }}
     >
+        <Typography variant="h6" sx={{ margin: "0 auto" }}>
+            <FilterDrama sx={{position: "relative", top: 4}}/> SimplerMDM
+        </Typography>
         <List>
             <SidebarItem text="Devices" href="/devices" Icon={AppSettingsAlt}/>
             <SidebarItem text="Profiles" href="/profiles" Icon={Ballot}/>
             <SidebarItem text="Users" href="/users" Icon={Group}/>
         </List>
-        <Box sx={{position: "absolute", bottom: 1, width: "100%" }} >
-            <UserSelector />
+        <Box sx={{position: "absolute", bottom: 1, width: "100%"}}>
+            <UserSelector/>
         </Box>
     </Drawer>
 }
