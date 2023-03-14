@@ -32,7 +32,7 @@ users = %w[admin@example.com employee@example.com support@example.com].map do |e
   company.users.find_or_create_by! email: email
 end
 
-User.update_all("current = (email = 'admin@example.com')")
+users.first.make_current
 
 profiles = %w[Wifi VPN Restrictions].map do |profile_name|
   company.profiles.find_or_create_by! name: profile_name
