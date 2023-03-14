@@ -35,7 +35,7 @@ if [ -n "$use_api_console" ]; then
   if [ -z "$command" ]; then
     command="bash"
   fi
-  docker compose run -it -v "$project_root/api":/var/www/api api $command
+  docker compose run --rm -it -v "$project_root/api":/var/www/api api $command
   exit
 fi
 
@@ -44,7 +44,7 @@ if [ -n "$use_frontend_console" ]; then
   if [ -z "$command" ]; then
       command="sh"
     fi
-  docker compose run -it -v "$project_root":/var/www/frontend frontend $command
+  docker compose run --rm -it -v "$project_root":/var/www/frontend frontend $command
   exit
 fi
 
