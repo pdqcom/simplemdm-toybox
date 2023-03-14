@@ -12,7 +12,7 @@ export default function UserSelector() {
     const userMenuItems = users.map(user => <MenuItem key={user.id} value={user.id}>{user.email}</MenuItem>)
     const handleChange = (e) => {
         const { value } = e.target
-        axios.put(`/api/users/${value}/current`).then(() => mutate)
+        axios.put(`/api/users/${value}/current`).then(() => mutate())
     }
     const userSelector = <Select
         value={currentUser?.id}
