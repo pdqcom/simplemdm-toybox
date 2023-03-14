@@ -26,4 +26,4 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-docker build $no_cache -t "pdq-interview-api" -f "$project_root/DockerfileAPI" "$project_root/api"
+docker build $no_cache -t "simplemdm-toybox-api" -f "$project_root/DockerfileAPI" "$project_root/api"

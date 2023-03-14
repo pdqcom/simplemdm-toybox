@@ -1,8 +1,9 @@
 #!/bin/bash
+
 project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
 
 help="Usage: $(basename "${BASH_SOURCE[0]}") [-h]
-Starts the docker compose project
+Sets up this project for the first time. Builds the necessary docker images, initializes the database and installs node modules.
 Arguments:
   -h - print this usage.
 "
@@ -16,9 +17,6 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-pid_file="$project_root/api/tmp/pids/server.pid"
-if [ -f "$pid_file" ]; then
-  rm "$pid_file"
-fi
-
-docker compose -f "$project_root/docker-compose.yml" up
+"$project_root/bin/build"
+"$project_root/bin/console" -a rails db:setup
+"$project_root/bin/console" -f yarn

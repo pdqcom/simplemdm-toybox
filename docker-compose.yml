@@ -12,12 +12,10 @@ services:
     networks:
      - pdqnet
   api:
-    image: pdq-interview-api
+    image: simplemdm-toybox-api
     tty: true
     environment:
       - PORT=4100
-    ports:
-      - 4100:4100
     command: ["rails", "s", "-b", "0.0.0.0", "-p", "4100"]
     volumes:
       - './api:/var/www/api'
@@ -31,8 +29,6 @@ services:
     command: ["yarn", "dev"]
     depends_on:
       - api
-    ports:
-      - 3000:3000
     volumes:
       - './frontend:/var/www/frontend'
     networks:
