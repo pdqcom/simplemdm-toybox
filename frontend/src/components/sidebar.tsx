@@ -26,9 +26,9 @@ const SidebarItem = ({text, href, Icon}: SidebarItemProps) => {
 const Sidebar = () => {
     return <Drawer
         open={true}
-        variant="persistent"
+        variant="permanent"
         sx={{
-            [`& .MuiDrawer-paper`]: { width: "200px" }
+            [`& .MuiDrawer-paper`]: {width: "200px"}
         }}
     >
         <List>
