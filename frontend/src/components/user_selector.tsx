@@ -1,7 +1,6 @@
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import useSWR from "swr";
-import CircularProgress from '@mui/material/CircularProgress';
-import Users, {User} from '../models/user'
+import Users, {User} from '../models/users'
 
 const UserForm = ({ children }) => <FormControl fullWidth>
     <InputLabel>Current Users</InputLabel>

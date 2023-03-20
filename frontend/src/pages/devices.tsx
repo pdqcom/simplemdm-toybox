@@ -1,30 +1,29 @@
-import {DataGrid, GridRowsProp, GridColDef} from '@mui/x-data-grid';
-import axios from "axios";
+import { GridRowsProp, GridColDef} from '@mui/x-data-grid';
 import useSWR from 'swr'
 import Link from "next/link";
 import {Box, Typography} from "@mui/material";
 import StyledDataGrid from "@/components/styled_data_grid";
-
+import {default as DevicesClient, Device} from '../models/devices'
 const DeviceLink = ({ id }) => {
     return <Link href={{
         pathname: '/devices/[id]',
         query: { id },
     }}>{ id }</Link>
 }
-const columns: GridColDef[] = [
+const columns: GridColDef[Device] = [
     {field: 'id', headerName: 'id', width: 150, renderCell: DeviceLink},
     {field: 'serialNumber', headerName: 'Serial Number', width: 300},
     {field: 'model', headerName: 'Model', width: 150},
 ];
 
-const getDevices = () => axios.get('/api/devices.json')
 export default function Devices() {
-    const {data: response, error, isLoading} = useSWR('/api/devices', getDevices)
+    const {data: devices, error, isLoading} = useSWR<Device[]>('/api/devices.json', DevicesClient.list)
     let dataGrid
+
     if (error) {
         dataGrid = <div>failed to load</div>
     } else {
-        const rows: GridRowsProp = response?.data?.data || []
+        const rows: GridRowsProp = devices || []
         dataGrid = <StyledDataGrid rows={rows} columns={columns} loading={isLoading}/>
     }
     return (

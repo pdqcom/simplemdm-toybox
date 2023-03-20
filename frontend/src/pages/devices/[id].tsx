@@ -1,4 +1,4 @@
-import {DataGrid, GridRowsProp, GridColDef} from '@mui/x-data-grid';
+import {GridRowsProp, GridColDef} from '@mui/x-data-grid';
 import axios from "axios";
 import useSWR from 'swr'
 import {useRouter} from 'next/router';
@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import StyledDataGrid from "@/components/styled_data_grid";
 import React from "react";
+import Devices, {Device as DeviceModel} from "@/models/devices";
 
-const getDevice = (id) => id ? axios.get(`/api/devices/${id}.json`).then(({data}) => data) : null
 const getAssignments = (id) => id ? axios.get(`/api/devices/${id}/profiles/assignments.json`).then(({data}) => data) : null
 const assignProfile = (deviceId, profileId) => axios.post(`/api/devices/${deviceId}/profiles/${profileId}/assignments.json`)
 const unassignProfile = (deviceId, profileId) => axios.delete(`/api/devices/${deviceId}/profiles/${profileId}/assignments.json`)
@@ -23,11 +23,10 @@ export default function Device() {
     const router = useRouter()
     const {id} = router.query
 
-    const {data: deviceResponse, isLoading: isLoadingDevice} = useSWR(
-        `/api/devices/${id}`,
-        () => getDevice(id)
+    const {data: device, isLoading: isLoadingDevice} = useSWR<DeviceModel>(
+        `/api/devices/${id}.json`,
+        () => Devices.show(id)
     )
-    const device = deviceResponse?.data
 
     const profileResponse = useSWR(
         `/api/devices/${id}/profiles/assignments`,
@@ -62,7 +61,7 @@ export default function Device() {
         <Box>
             <Typography color="textPrimary" gutterBottom variant="h2">Device {id}</Typography>
             <Card sx={{mb: 4}}>
-                <List dense={ true }>
+                <List dense={true}>
                     <ListItem>
                         <ListItemText primary="Serial Number"
                                       secondary={isLoadingDevice ? <CircularProgress/> : device?.serialNumber}/>
