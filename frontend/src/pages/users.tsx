@@ -4,7 +4,7 @@ import StyledDataGrid from "@/components/styled_data_grid";
 import {default as UserClient, User} from '../models/users'
 import useSWR from "swr";
 
-const Current = ({row: user}) => user.current ? <Chip label="Current Users"/> : null
+const Current = ({row: user}) => user.current ? <Chip label="Current User"/> : null
 
 const columns: GridColDef[User] = [
     {field: 'id', headerName: 'id', width: 150},
