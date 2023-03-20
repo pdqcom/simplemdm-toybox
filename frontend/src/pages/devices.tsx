@@ -1,9 +1,10 @@
-import { GridRowsProp, GridColDef} from '@mui/x-data-grid';
+import {GridColDef, GridRowsProp} from '@mui/x-data-grid';
 import useSWR from 'swr'
 import Link from "next/link";
 import {Box, Typography} from "@mui/material";
 import StyledDataGrid from "@/components/styled_data_grid";
 import {default as DevicesClient, Device} from '../models/devices'
+
 const DeviceLink = ({ id }) => {
     return <Link href={{
         pathname: '/devices/[id]',

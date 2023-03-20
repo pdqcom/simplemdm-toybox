@@ -10,7 +10,7 @@ import {
     ListItemText,
     Typography
 } from "@mui/material";
-import {AppSettingsAlt, Ballot, CloudSync, FilterDrama, Group} from "@mui/icons-material";
+import {AppSettingsAlt, Ballot, FilterDrama, Group} from "@mui/icons-material";
 import {ComponentType} from "react";
 
 import NextLink from "next/link"
