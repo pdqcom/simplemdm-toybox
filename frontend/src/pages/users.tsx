@@ -1,15 +1,19 @@
 import {GridColDef, GridRowsProp} from "@mui/x-data-grid";
-import {Typography} from "@mui/material";
+import {Chip, Typography} from "@mui/material";
 import StyledDataGrid from "@/components/styled_data_grid";
 import {default as UserClient, User} from '../models/user'
+import useSWR from "swr";
 
-const columns: GridColDef[] = [
+const Current = ({row: user}) => user.current ? <Chip label="Current User"/> : null
+
+const columns: GridColDef[User] = [
     {field: 'id', headerName: 'id', width: 150},
     {field: 'email', headerName: 'Email', width: 300},
+    {field: 'current', headerName: 'current', width: 300, renderCell: Current}
 ];
 
 export default function Users() {
-    const {data: users, error, isLoading} = UserClient.list()
+    const {data: users, error, isLoading} = useSWR<User[]>('/api/users/.json', UserClient.list)
     let dataGrid
     if (error) {
         dataGrid = <div>failed to load</div>
