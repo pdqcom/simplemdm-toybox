@@ -10,7 +10,9 @@ const UserForm = ({ children }) => <FormControl fullWidth>
 
 export default function UserSelector() {
 
-    const {data: users, error, mutate} = useSWR<User[]>('/api/users', Users.list)
+    const response = Users.list()
+    console.log("user selecotr response", response)
+    const {data: users, error, mutate} = response
 
     if (error) {
         return <div>failed to load</div>

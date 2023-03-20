@@ -1,4 +1,3 @@
-import useSWR from "swr";
 import {GridColDef, GridRowsProp} from "@mui/x-data-grid";
 import {Typography} from "@mui/material";
 import StyledDataGrid from "@/components/styled_data_grid";
@@ -10,7 +9,7 @@ const columns: GridColDef[] = [
 ];
 
 export default function Users() {
-    const {data: users, error, isLoading} = useSWR<User[]>('/api/users', UserClient.list)
+    const {data: users, error, isLoading} = UserClient.list()
     let dataGrid
     if (error) {
         dataGrid = <div>failed to load</div>
