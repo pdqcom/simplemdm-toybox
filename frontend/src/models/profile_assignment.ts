@@ -1,15 +1,11 @@
-import useSWR from "swr";
 import axios from "axios";
 import {responseBody} from "@/shared/ajax-client";
-import {Device} from "@/models/devices";
-
 
 interface ProfileAssignment {
     id: number
     name: string,
     assigned: boolean
 }
-
 
 const ProfileAssignments = {
     list: (deviceId) => axios.get(`/api/devices/${deviceId}/profiles/assignments.json`).then(responseBody<ProfileAssignment[]>),

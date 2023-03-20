@@ -1,5 +1,5 @@
 class DeviceProfileAssignmentsController < ApplicationController
-
+  rescue_from StandardError, with: :handle_errors
   def index
     profiles
     device.profiles.load

@@ -1,4 +1,3 @@
-import {AxiosResponse} from "axios/index";
 import axios from "axios";
 import {responseBody} from "@/shared/ajax-client";
 
