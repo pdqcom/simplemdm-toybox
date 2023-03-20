@@ -6,12 +6,12 @@ class UsersController < ApplicationController
 
   def current
     user.make_current
-    head 200
+    render 'show'
   end
 
   private
 
     def user
-      account.users.find(params[:id])
+      @user ||= account.users.find(params[:id])
     end
 end
