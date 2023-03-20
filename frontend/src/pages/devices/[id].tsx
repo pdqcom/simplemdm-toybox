@@ -14,10 +14,7 @@ import {
 import StyledDataGrid from "@/components/styled_data_grid";
 import React from "react";
 import Devices, {Device as DeviceModel} from "@/models/devices";
-
-const getAssignments = (id) => id ? axios.get(`/api/devices/${id}/profiles/assignments.json`).then(({data}) => data) : null
-const assignProfile = (deviceId, profileId) => axios.post(`/api/devices/${deviceId}/profiles/${profileId}/assignments.json`)
-const unassignProfile = (deviceId, profileId) => axios.delete(`/api/devices/${deviceId}/profiles/${profileId}/assignments.json`)
+import ProfileAssignments, {ProfileAssignment} from "@/models/profile_assignment";
 
 export default function Device() {
     const router = useRouter()
@@ -28,16 +25,15 @@ export default function Device() {
         () => Devices.show(id)
     )
 
-    const profileResponse = useSWR(
-        `/api/devices/${id}/profiles/assignments`,
-        () => getAssignments(id)
+    const profileResponse = useSWR<ProfileAssignment[]>(
+        `/api/devices/${id}/profiles/assignments.json`,
+        () => id ? ProfileAssignments.list(id) : null
     )
 
     const ProfileAssignmentCheckbox = ({row: profile}) => {
         const changeHandler = (e) => {
             const {checked} = e.target
-            const request = checked ? assignProfile(id, profile.id) : unassignProfile(id, profile.id)
-
+            const request = checked ? ProfileAssignments.assign(id, profile.id) : ProfileAssignments.unAssign(id, profile.id)
             request.then(() => profileResponse.mutate())
         }
         return <Checkbox checked={profile.assigned} onChange={changeHandler}/>
@@ -53,7 +49,7 @@ export default function Device() {
     if (profileResponse.error) {
         dataGrid = <div>failed to load</div>
     } else {
-        const rows: GridRowsProp = profileResponse?.data?.data || []
+        const rows: GridRowsProp = profileResponse.data || []
         dataGrid = <StyledDataGrid rows={rows} columns={columns} loading={profileResponse.isLoading}/>
     }
 
