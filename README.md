@@ -20,7 +20,9 @@ http://localhost
 
 ## Documentation
 https://guides.rubyonrails.org/
+
 https://mui.com/material-ui/getting-started/overview/
+
 https://nextjs.org/docs/getting-started
 
 
