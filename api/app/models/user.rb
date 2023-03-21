@@ -9,4 +9,5 @@ class User < ApplicationRecord
       update!(current: true)
     end
   end
+
 end

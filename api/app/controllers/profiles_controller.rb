@@ -8,4 +8,5 @@ class ProfilesController < ApplicationController
       @profiles = account.profiles.order(name: :asc)
     end
   end
+
 end

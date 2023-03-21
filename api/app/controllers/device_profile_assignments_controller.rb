@@ -1,9 +1,10 @@
 class DeviceProfileAssignmentsController < ApplicationController
-  rescue_from StandardError, with: :handle_errors
+
   def index
     profiles
     device.profiles.load
   end
+
   def create
     device.profiles << profile unless device.profiles.include?(profile)
     render 'show'
