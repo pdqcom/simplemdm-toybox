@@ -1,6 +1,6 @@
 ## SimplerMDM
 
-SimplerMDM is a toy project consisting of a Ruby on Rails backend and a NextJS front end.
+SimplerMDM is a toy project consisting of a Ruby on Rails backend and a NextJS frontend.
 There are several helper scripts included in the `bin` directory. Each one has their own help. To view the help
 run `./bin/$command -h`
 
@@ -17,6 +17,12 @@ Once everything is up and running, you should be able to visit the project by go
 ```
 http://localhost
 ```
+
+## Documentation
+https://guides.rubyonrails.org/
+https://mui.com/material-ui/getting-started/overview/
+https://nextjs.org/docs/getting-started
+
 
 ## Notes 
 
