@@ -4,8 +4,13 @@ class ApplicationController < ActionController::API
     @account ||= Account.find_by(name: "Company")
   end
 
-  def handle_errors
-    @error_message = "There was an error processing your request"
-    render '/error/show', status: 500
+  def current_user
+    account.users.find_by!(current: true)
   end
+
+  def render_error(error_message, status)
+    @error_message = error_message
+    render '/error/show', status: status
+  end
+
 end
