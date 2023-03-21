@@ -3,7 +3,7 @@ import useSWR from "swr";
 import Users, {User} from '../models/users'
 
 const UserForm = ({ children }) => <FormControl fullWidth>
-    <InputLabel>Current Users</InputLabel>
+    <InputLabel>Current User</InputLabel>
     { children }
 </FormControl>
 
@@ -22,9 +22,10 @@ export default function UserSelector() {
             const {value} = e.target
             Users.setCurrent(value).then(() => mutate())
         }
+
         const userSelector = <Select
             value={currentUser?.id}
-            label="Current Users"
+            label="Current User"
             onChange={handleChange}
         >
             {userMenuItems}
