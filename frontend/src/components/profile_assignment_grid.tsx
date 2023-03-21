@@ -1,9 +1,10 @@
-import {GridColDef} from '@mui/x-data-grid';
+import {GridColDef, GridRowsProp} from '@mui/x-data-grid';
 import useSWR from 'swr'
 import {Alert, Box, Checkbox, Typography} from "@mui/material";
 import StyledDataGrid from "@/components/styled_data_grid";
 import React, {useState} from "react";
 import ProfileAssignments, {ProfileAssignment} from "@/models/profile_assignment";
+import Users, {User} from "@/models/users";
 
 export default function ProfileAssignmentGrid({id}) {
     const [error, setError] = useState(null)
@@ -12,6 +13,9 @@ export default function ProfileAssignmentGrid({id}) {
         `/api/devices/${id}/profiles/assignments.json`,
         () => id ? ProfileAssignments.list(id) : null
     )
+
+    const {data: users } = useSWR<User[]>('/api/users.json', Users.list)
+    const currentUser = users ?  users.find(user => user.current) : null
 
     const ProfileAssignmentCheckbox = ({row: profile}) => {
         const changeHandler = (e) => {
