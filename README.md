@@ -25,6 +25,8 @@ https://mui.com/material-ui/getting-started/overview/
 
 https://nextjs.org/docs/getting-started
 
+https://github.com/rails/jbuilder
+
 
 ## Notes 
 
