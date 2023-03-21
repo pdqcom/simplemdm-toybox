@@ -26,7 +26,7 @@ module Api
 
     config.hosts << "api"
     config.generators do |g|
-      g.test_framework :test_unit, fixture_replacement: :factory_girl
+      g.test_framework :rspec, fixture_replacement: :factory_bot
       g.fixture_replacement :factory_bot, suffix_factory: 'factory'
     end
 
