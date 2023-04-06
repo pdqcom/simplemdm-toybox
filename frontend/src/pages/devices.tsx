@@ -1,18 +1,19 @@
-import {GridColDef, GridRowsProp} from '@mui/x-data-grid';
+import {GridColDef, GridRenderCellParams, GridRowsProp, GridValidRowModel} from '@mui/x-data-grid';
 import useSWR from 'swr'
 import Link from "next/link";
 import {Box, Typography} from "@mui/material";
 import StyledDataGrid from "@/components/styled_data_grid";
 import {default as DevicesClient, Device} from '../models/devices'
 
-const DeviceLink = ({ id }) => {
+const DeviceLink = (cellParams: GridRenderCellParams<Device>) => {
     return <Link href={{
         pathname: '/devices/[id]',
-        query: { id },
-    }}>{ id }</Link>
+        query: { id: cellParams.id },
+    }}>{ cellParams.id }</Link>
 }
-const columns: GridColDef[Device] = [
-    {field: 'id', headerName: 'id', width: 150, renderCell: DeviceLink},
+
+const columns: GridColDef[] = [
+    {field: 'id', headerName: 'id', width: 150, renderCell: DeviceLink },
     {field: 'serialNumber', headerName: 'Serial Number', width: 300},
     {field: 'model', headerName: 'Model', width: 150},
 ];

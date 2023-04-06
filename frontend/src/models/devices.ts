@@ -9,6 +9,7 @@ interface Device {
 
 const Devices = {
     list: () => axios.get('/api/devices.json').then(responseBody<Device[]>),
-    show: (id) => axios.get(`/api/devices/${id}.json`).then(responseBody<Device>)
+    show: (id: number) => axios.get(`/api/devices/${id}.json`).then(responseBody<Device>)
 }
-export {Device, Devices as default}
+export { Devices as default };
+export type { Device };

@@ -12,10 +12,10 @@ export default function Device() {
 
     const {data: device, isLoading: isLoadingDevice} = useSWR<DeviceModel>(
         `/api/devices/${id}.json`,
-        () => Devices.show(id)
+        () => Devices.show(Number(id))
     )
 
-    const profileAssignmentGrid = <ProfileAssignmentGrid id={id } />
+    const profileAssignmentGrid = <ProfileAssignmentGrid id={id} />
     return (
         <Box>
             <Typography color="textPrimary" gutterBottom variant="h2">Device {id}</Typography>

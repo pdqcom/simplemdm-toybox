@@ -12,4 +12,5 @@ const Users = {
     setCurrent: (id: string) => axios.put(`/api/users/${id}/current.json`).then(responseBody<User[]>)
 };
 
-export {User, Users as default}
+export { Users as default };
+export type { User };

@@ -1,6 +1,7 @@
+import { NextApiResponse } from "next";
 
 
-export const getServerSideProps = async ({ res }) => {
+export const getServerSideProps = async ({ res }: { res: NextApiResponse}) => {
     res.setHeader("Location", `/devices`);
 
     res.statusCode = 302;
