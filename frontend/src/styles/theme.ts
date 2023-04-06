@@ -1,12 +1,9 @@
 import {createTheme} from '@mui/material/styles';
 
 declare module "@mui/material/styles/createPalette"  {
-    interface Palette {
-        background: {
-            default: React.CSSProperties["color"],
-            primary: React.CSSProperties["color"]
-        }
-    }
+    interface TypeBackground {
+        primary: string
+    }    
 }
 
 const theme = createTheme({

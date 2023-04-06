@@ -4,7 +4,7 @@ import {Typography} from "@mui/material";
 import StyledDataGrid from "@/components/styled_data_grid";
 import {default as ProfileClient, Profile} from '../models/profiles'
 
-const columns: GridColDef[Profile] = [
+const columns: GridColDef[] = [
     {field: 'id', headerName: 'id', width: 150},
     {field: 'name', headerName: 'Name', width: 300},
     {field: 'deviceCount', headerName: 'Assigned Devices', width: 300},

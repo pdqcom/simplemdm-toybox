@@ -1,7 +1,6 @@
 import {
     Box,
-    Drawer,
-    IconProps,
+    Drawer,    
     Link,
     List,
     ListItem,
@@ -10,16 +9,15 @@ import {
     ListItemText,
     Typography
 } from "@mui/material";
-import {AppSettingsAlt, Ballot, FilterDrama, Group} from "@mui/icons-material";
-import {ComponentType} from "react";
+import {AppSettingsAlt, Ballot, FilterDrama, Group, SvgIconComponent} from "@mui/icons-material";
 
 import NextLink from "next/link"
 import UserSelector from "@/components/user_selector";
 
 type SidebarItemProps = {
-    text: String,
-    href: String,
-    Icon: ComponentType<IconProps>
+    text: string,
+    href: string,
+    Icon: SvgIconComponent
 }
 
 const SidebarItem = ({text, href, Icon}: SidebarItemProps) => {

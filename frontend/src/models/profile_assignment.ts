@@ -8,9 +8,10 @@ interface ProfileAssignment {
 }
 
 const ProfileAssignments = {
-    list: (deviceId) => axios.get(`/api/devices/${deviceId}/profiles/assignments.json`).then(responseBody<ProfileAssignment[]>),
-    assign: (deviceId, profileId) => axios.post(`/api/devices/${deviceId}/profiles/${profileId}/assignments.json`).then(responseBody<ProfileAssignment>),
-    unAssign: (deviceId, profileId) => axios.delete(`/api/devices/${deviceId}/profiles/${profileId}/assignments.json`).then(responseBody<ProfileAssignment>)
+    list: (deviceId: number) => axios.get(`/api/devices/${deviceId}/profiles/assignments.json`).then(responseBody<ProfileAssignment[]>),
+    assign: (deviceId: number, profileId: number) => axios.post(`/api/devices/${deviceId}/profiles/${profileId}/assignments.json`).then(responseBody<ProfileAssignment>),
+    unAssign: (deviceId: number, profileId:number) => axios.delete(`/api/devices/${deviceId}/profiles/${profileId}/assignments.json`).then(responseBody<ProfileAssignment>)
 }
 
-export { ProfileAssignments as default, ProfileAssignment }
+export { ProfileAssignments as default };
+export type { ProfileAssignment };

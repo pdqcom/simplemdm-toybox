@@ -11,4 +11,5 @@ const Profiles = {
     list: () => axios.get('/api/profiles.json').then(responseBody<Profile[]>)
 }
 
-export { Profiles as default, Profile }
+export { Profiles as default };
+export type { Profile };
