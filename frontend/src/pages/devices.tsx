@@ -1,4 +1,4 @@
-import {GridColDef, GridRenderCellParams, GridRowsProp, GridValidRowModel} from '@mui/x-data-grid';
+import {GridColDef, GridRenderCellParams, GridRowsProp} from '@mui/x-data-grid';
 import useSWR from 'swr'
 import Link from "next/link";
 import {Box, Typography} from "@mui/material";

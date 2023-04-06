@@ -1,7 +1,8 @@
 import {Grid} from "@mui/material";
 import Sidebar from "@/components/sidebar";
+import { ReactNode } from "react";
 
-const Layout = ({ children }) => {
+const Layout = ({ children }:{ children: ReactNode }) => {
     return <>
         <Grid container spacing={1}>
             <Grid item xs={3} lg={2} xl={1}>

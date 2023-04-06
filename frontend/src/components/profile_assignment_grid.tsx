@@ -1,4 +1,4 @@
-import {GridColDef, GridRowsProp} from '@mui/x-data-grid';
+import {GridColDef} from '@mui/x-data-grid';
 import useSWR from 'swr'
 import {Alert, Box, Checkbox, Typography} from "@mui/material";
 import StyledDataGrid from "@/components/styled_data_grid";
@@ -6,29 +6,32 @@ import React, {useState} from "react";
 import ProfileAssignments, {ProfileAssignment} from "@/models/profile_assignment";
 import Users, {User} from "@/models/users";
 
-export default function ProfileAssignmentGrid({id}) {
+export default function ProfileAssignmentGrid({id: deviceId }: {id: number | null}) {
+
     const [error, setError] = useState(null)
 
     const profileResponse = useSWR<ProfileAssignment[]>(
-        `/api/devices/${id}/profiles/assignments.json`,
-        () => id ? ProfileAssignments.list(id) : null
+        `/api/devices/${deviceId}/profiles/assignments.json`,
+        deviceId === null ? null : () => ProfileAssignments.list(deviceId)
     )
 
     const {data: users } = useSWR<User[]>('/api/users.json', Users.list)
     const currentUser = users ?  users.find(user => user.current) : null
 
-    const ProfileAssignmentCheckbox = ({row: profile}) => {
-        const changeHandler = (e) => {
-            const {checked} = e.target
-            const request = checked ? ProfileAssignments.assign(id, profile.id) : ProfileAssignments.unAssign(id, profile.id)
-            request.then(() => profileResponse.mutate())
-                .catch((error) => {
-                    const errorMessage = error?.response?.data?.error?.message
-                    if (errorMessage) {
-                        setError(errorMessage)
-                        profileResponse.mutate()
-                    }
-                })
+    const ProfileAssignmentCheckbox = ({row: profile}: { row: ProfileAssignment }) => {
+        const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+            if (typeof deviceId === "number"){                
+                const {checked} = e.target
+                const request = checked ? ProfileAssignments.assign(deviceId, profile.id) : ProfileAssignments.unAssign(deviceId, profile.id)
+                request.then(() => profileResponse.mutate())
+                    .catch((error) => {
+                        const errorMessage = error?.response?.data?.error?.message
+                        if (errorMessage) {
+                            setError(errorMessage)
+                            profileResponse.mutate()
+                        }
+                    })
+            }
         }
         return <Checkbox checked={profile.assigned} onChange={changeHandler}/>
     }
@@ -56,4 +59,5 @@ export default function ProfileAssignmentGrid({id}) {
             {dataGrid}
         </Box>
     )
+    
 }

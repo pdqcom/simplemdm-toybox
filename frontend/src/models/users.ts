@@ -9,7 +9,7 @@ interface User {
 
 const Users = {
     list: () => axios.get('/api/users.json').then(responseBody<User[]>),
-    setCurrent: (id: string) => axios.put(`/api/users/${id}/current.json`).then(responseBody<User[]>)
+    setCurrent: (id: number) => axios.put(`/api/users/${id}/current.json`).then(responseBody<User[]>)
 };
 
 export { Users as default };

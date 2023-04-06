@@ -15,7 +15,7 @@ export default function Device() {
         () => Devices.show(Number(id))
     )
 
-    const profileAssignmentGrid = <ProfileAssignmentGrid id={id} />
+    const profileAssignmentGrid = <ProfileAssignmentGrid id={ id ? Number(id) : null  } />
     return (
         <Box>
             <Typography color="textPrimary" gutterBottom variant="h2">Device {id}</Typography>
