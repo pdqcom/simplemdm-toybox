@@ -1,4 +1,4 @@
-# MySQL. Versions 5.5.8 and up are supported.
+# MySQL. Versions 5.6.4 and up are supported.
 #
 # Install the MySQL driver
 #   gem install mysql2
@@ -14,8 +14,8 @@ default: &default
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password: root
-  host: db
+  password:
+  host: <%= ENV.fetch("DB_HOST") { "127.0.0.1" } %>
 
 development:
   <<: *default
@@ -49,7 +49,20 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: api_production
-  username: api
-  password: <%= ENV["API_DATABASE_PASSWORD"] %>
+  primary: &primary_production
+    <<: *default
+    database: api_production
+    username: api
+    password: <%= ENV["API_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: api_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: api_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: api_production_cable
+    migrations_paths: db/cable_migrate
