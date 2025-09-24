@@ -24,7 +24,7 @@ services:
     depends_on:
       - db
   frontend:
-    image: node:19.7.0-alpine3.16
+    image: node:22-alpine
     working_dir: '/var/www/frontend'
     command: ["yarn", "dev"]
     depends_on:

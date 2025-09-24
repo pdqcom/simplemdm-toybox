@@ -1,12 +1,12 @@
 #!/bin/bash
 project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
-
 no_cache=""
 help="Usage: $(basename "${BASH_SOURCE[0]}") [-h -n]
 Builds the docker images
 Arguments:
   -h - print this usage.
   -n - no cache in build.
+  -v - verbose mode
 "
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -16,7 +16,9 @@ while [[ $# -gt 0 ]]; do
       ;;
       -n)
         no_cache="--no-cache"
-        exit 0
+      ;;
+      -v)
+        set -x
       ;;
       *)
         echo "Unexpected argument: $1"
