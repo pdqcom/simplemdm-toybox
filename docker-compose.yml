@@ -38,14 +38,14 @@ services:
     ports:
       - 4103:3306
     volumes:
-      - simplemdm_toybox_dbdata:/var/lib/mysql
+      - db_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: "%"
     networks:
       - pdqnet
 volumes:
-  simplemdm_toybox_dbdata:
+  db_data:
 networks:
   pdqnet:
     attachable: true
