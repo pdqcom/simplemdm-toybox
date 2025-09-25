@@ -18,5 +18,8 @@ while [[ $# -gt 0 ]]; do
 done
 
 "$project_root/bin/build"
-"$project_root/bin/console" -a rails db:setup
+docker compose -f "$project_root/docker-compose.yml" up -d db
+echo "Waiting for database to start..."
+sleep 5
+"$project_root/bin/console" -a rails db:reset
 "$project_root/bin/console" -f yarn
