@@ -1,0 +1,25 @@
+#!/bin/bash
+project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
+
+help="Usage: $(basename "${BASH_SOURCE[0]}") [-h]
+Starts the docker compose project
+Arguments:
+  -h - print this usage.
+"
+while [[ $# -gt 0 ]]; do
+  case $1 in
+      -h)
+        echo "$help"
+        exit 0
+      ;;
+  esac
+  shift
+done
+
+
+docker compose -f "$project_root/docker-compose.yml" down
+
+pid_file="$project_root/api/tmp/pids/server.pid"
+if [ -f "$pid_file" ]; then
+  rm "$pid_file"
+fi
