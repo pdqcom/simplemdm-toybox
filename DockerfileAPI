@@ -1,5 +1,8 @@
 FROM ruby:3.4.6-slim-bookworm
 WORKDIR /var/www/api
+RUN apt-get update && apt-get install -y git build-essential default-mysql-client libyaml-dev default-libmysqlclient-dev vim
+RUN gem update --system 3.7.2 && gem install bundler && gem install nokogiri --platform=ruby
 COPY Gemfile Gemfile.lock .
-RUN apt-get update && apt-get install -y git build-essential default-mysql-client libyaml-dev default-libmysqlclient-dev vim && gem update --system 3.7.2 && gem install bundler && gem install nokogiri --platform=ruby
 RUN bundle install
+
+RUN apt-get install -y procps
