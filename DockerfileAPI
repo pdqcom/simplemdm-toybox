@@ -1,7 +1,10 @@
-FROM ruby:3.4.6-slim-bookworm
+FROM ruby:3.4.7-slim-bookworm
 WORKDIR /var/www/api
+ARG USER_ID
 RUN apt-get update && apt-get install -y git build-essential default-mysql-client libyaml-dev default-libmysqlclient-dev vim
 RUN gem update --system 3.7.2 && gem install bundler && gem install nokogiri --platform=ruby
+COPY .devops/add_user.sh /tmp/add_user.sh
+RUN chmod +x /tmp/add_user.sh && /tmp/add_user.sh
 COPY Gemfile Gemfile.lock .
 RUN bundle install
 
