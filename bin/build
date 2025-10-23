@@ -1,12 +1,18 @@
 #!/bin/bash
 project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
 no_cache=""
+# Used to create a user with the same uid as the host user
+# so that files created in mounted volumes are owned by the host user
+# rather than root. This avoids the need to use sudo to edit files when creating files in the container and mounting them on a linux host
+user_id=$(id -u)
+add_user="--build-arg USER_ID=$user_id"
 help="Usage: $(basename "${BASH_SOURCE[0]}") [-h -n]
 Builds the docker images
 Arguments:
   -h - print this usage.
   -n - no cache in build.
   -v - verbose mode
+  -s - skip adding user to match host uid (may be helpful on Windows or Mac)
 "
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -20,6 +26,9 @@ while [[ $# -gt 0 ]]; do
       -v)
         set -x
       ;;
+      -s)
+        add_user=""
+      ;;
       *)
         echo "Unexpected argument: $1"
         exit 1
@@ -28,4 +37,4 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-docker build $no_cache -t "simplemdm-toybox-api" -f "$project_root/DockerfileAPI" "$project_root/api"
+docker build $no_cache $add_user -t "simplemdm-toybox-api" -f "$project_root/DockerfileAPI" "$project_root/api"
